@@ -38,8 +38,6 @@ def getImage(filename):
             'image/encoded': tf.FixedLenFeature([], dtype=tf.string, default_value='')
         })
     # ------parsed 1 example, and given its features. We threw the features into a dictionary that maps a feature to 
-    # -- not sure why we'd parse the 0 dimensional tensor of feature yet...we'll see later
-
 
     # now we are going to manipulate the label and image features
 
@@ -50,9 +48,9 @@ def getImage(filename):
     with tf.name_scope('decode_jpeg',[image_buffer], None): #----------------name_scope is a context manager
         # decode
         image = tf.image.decode_jpeg(image_buffer, channels=3) #-------------actual decoding takes place here...not real sure why he put 3 channels instead of 1 for gray scale images
-                                                                # -------he's decoding features['image/encoded']
+                                                                # ------- decode features['image/encoded']
         # and convert to single precision data type
-        image = tf.image.convert_image_dtype(image, dtype=tf.float32) #------seems like converting the image to a float32 tensor allows you to reshape successfully to a single dimensional tensor with 1024 elements --check terminal
+        image = tf.image.convert_image_dtype(image, dtype=tf.float32) #------converting the image to a float32 tensor allows you to reshape successfully to a single dimensional tensor with 1024 elements --check terminal
 
 
     # cast image into a single array, where each element corresponds to the greyscale 
@@ -120,7 +118,7 @@ if simpleModel:
 
 
 else:
-  # run convolutional neural network model given in "Expert MNIST" TensorFlow tutorial
+  # run convolutional neural network model
 
   # functions to init small positive weights and biases
   def weight_variable(shape):
