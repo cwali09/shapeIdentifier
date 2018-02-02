@@ -47,7 +47,7 @@ def getImage(filename):
     # Decode the jpeg
     with tf.name_scope('decode_jpeg',[image_buffer], None): #----------------name_scope is a context manager
         # decode
-        image = tf.image.decode_jpeg(image_buffer, channels=3) #-------------actual decoding takes place here...not real sure why he put 3 channels instead of 1 for gray scale images
+        image = tf.image.decode_jpeg(image_buffer, channels=3) #------------- decoding takes place here
                                                                 # ------- decode features['image/encoded']
         # and convert to single precision data type
         image = tf.image.convert_image_dtype(image, dtype=tf.float32) #------converting the image to a float32 tensor allows you to reshape successfully to a single dimensional tensor with 1024 elements --check terminal
@@ -61,7 +61,6 @@ def getImage(filename):
 
     # re-define label as a "one-hot" vector 
     # it will be [0,1] or [1,0] here. 
-    # This approach can easily be extended to more classes.
     label=tf.stack(tf.one_hot(label-1, nClass))
 
     return label, image
