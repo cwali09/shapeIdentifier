@@ -57,8 +57,7 @@ def getImage(filename):
     # value of a single pixel. 
     # the "1-.." part inverts the image, so that the background is black.
 
-    image=tf.reshape(1-tf.image.rgb_to_grayscale(image),[height*width]) #---------why is he reshaping here? ^check above comment
-
+    image=tf.reshape(1-tf.image.rgb_to_grayscale(image),[height*width]) 
     # re-define label as a "one-hot" vector 
     # it will be [0,1] or [1,0] here. 
     label=tf.stack(tf.one_hot(label-1, nClass))
